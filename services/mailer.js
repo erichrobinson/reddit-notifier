@@ -45,5 +45,5 @@ export default async function sendMail(db, user) {
     html: `${await _generateEmailBody(db, user)}`
   };
 
-  // sgMail.send(msg);
+  sgMail.send(msg);
 }
