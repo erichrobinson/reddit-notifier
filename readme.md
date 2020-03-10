@@ -1,10 +1,12 @@
 # Requirements
 - MongoDB
 - nodemon
+- SendGrid API key
 
 # Getting Started
 - `npm install`
 - `npm start`
+- create .env file with `SENDGRID_API_KEY=SGKEY`
 
 # Endpoints
 **POST** `/users/:user`
