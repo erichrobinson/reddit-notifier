@@ -35,8 +35,7 @@ async function _generateEmailBody(db, user) {
 }
 
 export default async function sendMail(db, user) {
-  // Obviously wouldn't expose this secret usually
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY || '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');
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
   const msg = {
     to: user.email,
