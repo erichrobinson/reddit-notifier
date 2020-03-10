@@ -23,8 +23,9 @@ export async function updateUser(db, data) {
   
   if(email) update.email = email
   if(name) update.name = name
+
   if(active !== undefined) {
-    active = active.toLowerCase() === 'true' ? true : false
+    update.active = active.toLowerCase() === 'true' ? true : false
   }
 
   try {
@@ -39,8 +40,4 @@ export async function updateUser(db, data) {
   }
 
   return result
-}
-
-export async function getUser(db, user) {
-
 }

@@ -5,7 +5,7 @@ import bodyParser from 'body-parser'
 
 import { addUser, updateUser } from './controllers/users'
 import { addChannels, updateChannel, getChannels } from './controllers/channels'
-import mailer from './services/mailer'
+import scheduleEmails from './services/scheduler'
 
 function _init(db) {
   const redditNotifier = db.db('reddit-notifier')
@@ -20,6 +20,8 @@ function _init(db) {
   // Prevent dupplicate records
   redditNotifier.collection('users').createIndex({ user: 1 }, { unique: true })
   redditNotifier.collection('channels').createIndex({ userId: 1, name: 1 }, { unique: true })
+
+  scheduleEmails(redditNotifier)
 
   return {
     redditNotifier,

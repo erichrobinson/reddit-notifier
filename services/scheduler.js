@@ -1,14 +1,11 @@
-import cron from 'cron'
-import mailer from './mailer'
+import { CronJob } from 'cron'
+import sendMail from './mailer'
 
-export default function scheduleEmails() {
-  // Basic cron functionality. Need to hook up to SendGrid API
-  // get all active users
-  // for each user => get channels
-  // for each channel => get top posts
-  // send data through sendgrids
-  // var job = new CronJob('* * * * * *', function() {
-  //   console.log('You will see this message every second');
-  // }, null, true, 'America/Los_Angeles');
-  // job.start();
+export default async function scheduleEmails(db) {
+  const users = await db.collection('users').find({ active: true })
+  users.forEach(user => {
+    sendMail(db, user)
+    const job = new CronJob('0 8 * * * ', sendMail(db, user), null, true, 'America/Denver')
+    job.start()
+  })
 }
